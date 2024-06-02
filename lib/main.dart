@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       scrollBehavior: MyScrollBehavior(),
       theme: AppTheme.light,
-      home: RootScreen(),
+      home: const RootScreen(),
       initialBinding: AppBinding(),
       // useInheritedMediaQuery: true,
       // locale: DevicePreview.locale(context),
