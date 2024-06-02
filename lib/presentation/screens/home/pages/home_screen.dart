@@ -3,6 +3,7 @@ import 'package:estate_app/core/utils/assets_util.dart';
 import 'package:estate_app/presentation/screens/home/widgets/place_card.dart';
 import 'package:flutter/material.dart';
 import 'package:countup/countup.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import '../../../../core/config/app_color.dart';
 
@@ -31,13 +32,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
   double defaultContainerSize = 30.0;
   double targetSize = 0.0;
 
-  void _setContainerTargetSize() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        targetSize = MediaQuery.of(context).size.width / 2.5;
-      });
-    });
-  }
+
 
   @override
   void initState() {
@@ -46,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
 
   avatarAnimation();
   slideAnimation();
-  _setContainerTargetSize();
   containerAnimation();
 
 
@@ -66,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
   Widget build(BuildContext context) {
     var theme = Theme.of(context).textTheme;
     var size = MediaQuery.sizeOf(context);
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SafeArea(
@@ -163,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                                    Text('BUY', style : theme.headlineMedium!.copyWith(
                                      color: Colors.white
                                    )),
-                                   const SizedBox(height: 30,),
+                                   SizedBox(height: size.height < 700 ? 20 : 30,),
                                    Countup(
                                        begin: 0,
                                        end: 1034,
@@ -201,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
                                  children: [
                                    const SizedBox(height: 20,),
                                        Text('RENT', style : theme.headlineMedium),
-                                   const SizedBox(height: 30,),
+                                   SizedBox(height: size.height < 700 ? 20 : 30,),
                                    Countup(
                                        begin: 0,
                                        end: 2212,
@@ -279,6 +274,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
 
 
   void containerAnimation(){
+
     _containerController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -292,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
 
     _containerAnimation = Tween<double>(
       begin: defaultContainerSize,
-      end: 180,
+      end: 160,
     ).animate(CurvedAnimation(
       parent: _containerController,
       curve: Curves.fastOutSlowIn,
@@ -320,5 +316,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin{
 
     _avatarController.forward();
   }
+
 }
 

@@ -14,7 +14,7 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
   late List<AnimationController> _controllers;
   late List<Animation<double>> _animations;
 
@@ -115,12 +115,13 @@ class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Stack(
         children: [
           IndexedStack(
             index: _selectedIndex,
-            children: [
+            children: const [
               SearchScreen(),
               ChatScreen(),
               HomeScreen(),
@@ -129,14 +130,14 @@ class _RootScreenState extends State<RootScreen> with TickerProviderStateMixin {
             ],
           ),
           Positioned(
-            bottom: 80.0,
+            bottom: size.height < 700 ? 50 : 80.0,
             left: 20.0,
             right: 20.0,
             child: Container(
               decoration: BoxDecoration(
                 color: AppColor.textColor,
                 borderRadius: BorderRadius.circular(30.0),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     spreadRadius: 1,

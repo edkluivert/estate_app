@@ -2,9 +2,11 @@ import 'package:estate_app/core/config/app_theme.dart';
 import 'package:estate_app/core/di/app_binding.dart';
 import 'package:estate_app/presentation/screens/home/pages/home_screen.dart';
 import 'package:estate_app/presentation/screens/root/pages/root_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 import 'core/config/app_color.dart';
@@ -13,6 +15,11 @@ import 'core/utils/my_scroll_behaviour.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
+  // runApp(DevicePreview(
+  //   enabled: !kReleaseMode,
+  //   builder: (context) => const MyApp(), // Wrap your app
+  // ),);
+
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +31,10 @@ class MyApp extends StatelessWidget {
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
 
     SystemUiOverlayStyle dark =  SystemUiOverlayStyle(
       statusBarColor: AppColor.topHomeBg,
